@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <property>
+    <name>dfs.replication</name>
+    <value>3</value>
+  </property>
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:///home/team/hdfs-hw1/name</value>
+  </property>
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:///home/team/hdfs-hw1/data</value>
+  </property>
+  <property>
+    <name>dfs.namenode.checkpoint.dir</name>
+    <value>file:///home/team/hdfs-hw1/checkpoint</value>
+  </property>
+  <property>
+    <name>dfs.namenode.http-address</name>
+    <value>team-29-nn:9870</value>
+  </property>
+  <property>
+    <name>dfs.namenode.secondary.http-address</name>
+    <value>team-29-en:9868</value>
+  </property>
+</configuration>
