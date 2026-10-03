@@ -45,4 +45,5 @@ else
 fi
 BASH
 
+bash "$script_dir/stop.sh"
 bash "$script_dir/start.sh"
