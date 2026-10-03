@@ -1,0 +1,17 @@
+team-29-en
+67876 DataNode
+68040 Jps
+67951 SecondaryNameNode
+
+team-29-nn
+39044 Jps
+38766 NameNode
+
+team-29-00
+39700 DataNode
+39861 Jps
+
+team-29-01
+39828 Jps
+39709 DataNode
+
