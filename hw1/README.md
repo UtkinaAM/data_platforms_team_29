@@ -8,7 +8,7 @@
 | --- | --- | --- |
 | Соленникова София Сергеевна | @an_soc | [poskrebish](https://github.com/poskrebish) |
 | Маликова Полина Михайловна | @pomalkv | [pmmalikova](https://github.com/pmmalikova) |
-| Пушкарева Анастасия Эдуардовна | @nonetrait | |
+| Пушкарева Анастасия Эдуардовна | @nonetrait | [nonetrait](https://github.com/nonetrait) |
 | Уткина Анастасия Михайловна | @aytsantu | [UtkinaAM](https://github.com/UtkinaAM) |
 
 ## Архитектура
@@ -123,13 +123,20 @@ bash scripts/stop.sh
 
 ## Проверка
 
-После развертывания на edge из каталога `hw1` выполнить:
+Основной способ подтверждения работы кластера: Web UI NameNode. После открытия интерфейса через SSH tunnel проверить:
+
+- Live Nodes: 3;
+- Dead Nodes: 0;
+- Decommissioning Nodes: 0;
+- на вкладке Datanodes видны три работающих DataNode.
+
+Для дополнительной автоматической проверки на edge из каталога `hw1` выполнить:
 
 ```bash
 bash scripts/check.sh
 ```
 
-Скрипт проверяет:
+`check.sh` и отчеты в `results/` позволяют повторить проверку и сохранить ее результаты. Скрипт проверяет:
 
 - NameNode;
 - Secondary NameNode;
@@ -140,14 +147,11 @@ bash scripts/check.sh
 - три живые реплики тестового файла, `Live_repl=3`;
 - состояние HDFS через `fsck` и наличие статуса `HEALTHY`.
 
-Результаты сохраняются в файлы относительно каталога `hw1`:
+Основные файлы дополнительной проверки:
 
 - `results/jps.txt`;
 - `results/dfsadmin-report.txt`;
-- `results/fsck.txt`;
-- `results/checkpoint.txt`.
-
-В `checkpoint.txt` сохраняются статус Secondary NameNode и сведения из его лога. Отсутствие записи `Checkpoint done` не прерывает проверку.
+- `results/fsck.txt`.
 
 ## Web UI
 
@@ -178,17 +182,13 @@ ssh -N \
 - Under-replicated blocks: 0.
 - Missing blocks: 0.
 - Corrupt blocks: 0.
-- Secondary NameNode работает.
-- Checkpoint выполняется, что видно в Web UI Secondary NameNode.
+- Web UI подтверждает работу Secondary NameNode.
 
-`checkpoint.txt` сохранен до первого checkpoint. Время последнего checkpoint видно на скриншоте Web UI Secondary NameNode.
-
-Файлы результатов:
+Файлы дополнительной автоматической проверки:
 
 - [jps.txt](results/jps.txt)
 - [dfsadmin-report.txt](results/dfsadmin-report.txt)
 - [fsck.txt](results/fsck.txt)
-- [checkpoint.txt](results/checkpoint.txt)
 
 ## Скриншоты
 
@@ -217,4 +217,4 @@ ssh -N \
 
 ![Secondary NameNode](screenshots/secondary-namenode.jpg)
 
-Web UI показывает время последнего checkpoint.
+Web UI подтверждает работу Secondary NameNode и показывает время последнего checkpoint.
