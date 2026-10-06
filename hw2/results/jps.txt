@@ -1,0 +1,22 @@
+team-29-en
+67876 DataNode
+103387 Jps
+103258 NodeManager
+67951 SecondaryNameNode
+
+team-29-nn
+48835 Jps
+48507 JobHistoryServer
+48380 ResourceManager
+38766 NameNode
+
+team-29-00
+50626 NodeManager
+39700 DataNode
+50806 Jps
+
+team-29-01
+49969 Jps
+39709 DataNode
+49790 NodeManager
+

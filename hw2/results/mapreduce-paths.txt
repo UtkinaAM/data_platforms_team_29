@@ -1,0 +1,2 @@
+Input: /user/team/hw2/check-20261006T150353-tmp.ikUBRW5J1B/input
+Output: /user/team/hw2/check-20261006T150353-tmp.ikUBRW5J1B/output

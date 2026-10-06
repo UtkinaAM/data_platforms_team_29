@@ -1,0 +1,7 @@
+ResourceManager: 200
+JobHistoryServer: 200
+ResourceManager-proxy: 200
+JobHistoryServer-proxy: 200
+NodeManager-en: 200
+NodeManager-00: 200
+NodeManager-01: 200
