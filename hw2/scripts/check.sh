@@ -41,13 +41,18 @@ fi
 
 for attempt in {1..24}; do
   if timeout 30 "$hadoop_home/bin/yarn" node -list -all > "$results_dir/yarn-nodes.txt" 2>&1 &&
-    awk '$1 ~ /:[0-9]+$/ {
+    awk '/^Total Nodes:/ {
+      reports++
+      reported=$0 ~ /^Total Nodes:[[:space:]]*3[[:space:]]*$/
+    }
+    $1 ~ /:[0-9]+$/ {
       total++
       split($1, node, ":")
+      sub(/\..*$/, "", node[1])
       if ($2 == "RUNNING" && node[1] ~ /^team-29-(en|00|01)$/) running[node[1]]=1
     } END {
       for (host in running) count++
-      exit !(total == 3 && count == 3)
+      exit !(reports == 1 && reported && total == 3 && count == 3)
     }' \
       "$results_dir/yarn-nodes.txt"; then
     break
