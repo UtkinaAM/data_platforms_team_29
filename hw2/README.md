@@ -2,7 +2,7 @@
 
 Поверх существующего HDFS-кластера из ДЗ1 развернут YARN. Запущены ResourceManager, три NodeManager и JobHistoryServer. Web UI опубликованы через nginx на edge-узле.
 
-Web UI HDFS были настроены и описаны в ДЗ1. В ДЗ2 дополнительно публикуются Web UI YARN и MapReduce: ResourceManager, JobHistoryServer и три NodeManager.
+Web UI NameNode и Secondary NameNode были настроены и описаны в ДЗ1. В ДЗ2 дополнительно публикуются Web UI YARN и MapReduce: ResourceManager, JobHistoryServer и три NodeManager.
 
 ## Участники
 
