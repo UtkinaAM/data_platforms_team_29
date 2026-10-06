@@ -1,8 +1,6 @@
 # ДЗ2. Введение в платформы данных
 
-Поверх существующего HDFS-кластера из ДЗ1 развернут YARN. Запущены ResourceManager, три NodeManager и JobHistoryServer. Web UI доступны через nginx на edge-узле.
-
-Web UI NameNode и Secondary NameNode были настроены и описаны в ДЗ1. В ДЗ2 дополнительно публикуются Web UI YARN и MapReduce: ResourceManager, JobHistoryServer и три NodeManager.
+Поверх существующего HDFS-кластера из ДЗ1 развернут YARN. Запущены ResourceManager, три NodeManager и JobHistoryServer. Web UI YARN и MapReduce доступны через nginx на edge-узле. Web UI NameNode и Secondary NameNode были настроены и описаны в ДЗ1.
 
 ## Участники
 
@@ -176,7 +174,7 @@ ssh -N \
 
 ## Результат
 
-В сохраненных результатах проверки от 6 октября 2026 года:
+По результатам проверки:
 
 - `jps` показывает ResourceManager, JobHistoryServer и три NodeManager. Процессы HDFS также присутствуют.
 - YARN возвращает `Total Nodes:3`. Узлы `team-29-en.hse.c.mws`, `team-29-00.hse.c.mws` и `team-29-01.hse.c.mws` имеют состояние `RUNNING`.
