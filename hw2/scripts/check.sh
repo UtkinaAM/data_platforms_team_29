@@ -99,5 +99,3 @@ if [[ $output != $'hadoop\t1\nhello\t2\nyarn\t1' ]]; then
   printf 'Результат wordcount не совпадает с ожидаемым.\n' >&2
   exit 1
 fi
-
-printf 'Проверка HW2 пройдена: три RUNNING NodeManager, wordcount выполнен через YARN, Web UI доступны на edge.\n'

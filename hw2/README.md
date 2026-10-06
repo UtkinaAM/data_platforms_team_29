@@ -134,7 +134,7 @@ bash scripts/check.sh
 - ResourceManager и JobHistoryServer на `team-29-nn`;
 - NodeManager на `team-29-en`, `team-29-00` и `team-29-01`;
 - `Total Nodes:3` и состояние `RUNNING` у всех трех узлов, с короткими именами или FQDN;
-- Web UI ResourceManager и JobHistoryServer, а также пять адресов nginx через `10.29.0.10`;
+- Web UI ResourceManager и JobHistoryServer, а также пять Web UI через nginx на `10.29.0.10`;
 - выполнение wordcount через YARN из `hadoop-mapreduce-examples-3.4.2.jar`;
 - успешное завершение команды, наличие `_SUCCESS` и совпадение результата с ожидаемым.
 

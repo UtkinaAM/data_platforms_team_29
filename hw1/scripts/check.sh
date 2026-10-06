@@ -109,5 +109,3 @@ if ! awk '
   printf 'Для test.txt не найдены три живые реплики. Проверьте results/fsck.txt.\n' >&2
   exit 1
 fi
-
-printf 'Проверка пройдена: процессы работают, 3 Live DataNode, test.txt прочитан, Live_repl=3, HDFS HEALTHY.\n'
