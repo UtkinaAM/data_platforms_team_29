@@ -101,7 +101,7 @@ bash scripts/deploy.sh
 
 `deploy.sh` проверяет существующий Hadoop 3.4.2, копирует настройки YARN и MapReduce на четыре узла, создает рабочие каталоги и настраивает разрешение имен на трех NodeManager. На edge устанавливается nginx, если его еще нет. Конфигурация nginx проверяется через `nginx -t`; при ошибке обновления восстанавливается предыдущий файл.
 
-Затем скрипт перезапускает ResourceManager, JobHistoryServer и три NodeManager. Повторное развертывание нужно выполнять после завершения текущих задач. Процессы HDFS продолжают работать.
+Затем скрипт перезапускает ResourceManager, JobHistoryServer и три NodeManager. Процессы HDFS продолжают работать.
 
 ## Запуск и остановка
 
@@ -172,8 +172,6 @@ ssh -N \
 - NodeManager team-29-00: [http://localhost:18043/node](http://localhost:18043/node);
 - NodeManager team-29-01: [http://localhost:18044/node](http://localhost:18044/node).
 
-Внутренние ссылки между UI могут вести на hostname узла. Для NodeManager можно использовать отдельные адреса из списка выше.
-
 ## Результат
 
 В сохраненных результатах проверки от 6 октября 2026 года:
@@ -219,7 +217,7 @@ Output: /user/team/hw2/check-20261006T150353-tmp.ikUBRW5J1B/output
 
 ![JobHistoryServer](screenshots/job-history.jpg)
 
-В истории есть успешный wordcount с одной завершенной map-задачей и одной reduce-задачей.
+На странице видно успешно завершенный MapReduce job со статусом `SUCCEEDED`, одной map-задачей и одной reduce-задачей.
 
 ### NodeManager team-29-en
 
