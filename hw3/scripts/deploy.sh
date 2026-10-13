@@ -190,7 +190,7 @@ cat <<XML > "$work_dir/hive-site.xml"
     <value>false</value>
   </property>
   <property>
-    <name>metastore.event.db.notification.api.auth</name>
+    <name>hive.metastore.event.db.notification.api.auth</name>
     <value>false</value>
   </property>
   <property>
