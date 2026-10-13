@@ -109,7 +109,7 @@ id INT
 name STRING
 event_date STRING
 event_type STRING
-year INT PARTITION
+PARTITIONED BY (year INT)
 ```
 
 Скрипт готовит шесть строк и загружает партиции `2024`, `2025` и `2026`, по две записи в каждую. `LOAD DATA INPATH` с `OVERWRITE` обновляет эти партиции при повторном запуске без накопления дубликатов. Затем Beeline показывает партиции, количество строк и содержимое таблицы.
