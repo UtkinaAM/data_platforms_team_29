@@ -45,6 +45,7 @@ LOAD DATA INPATH '/user/team/hw3/input/2024.csv' OVERWRITE INTO TABLE hw3.events
 LOAD DATA INPATH '/user/team/hw3/input/2025.csv' OVERWRITE INTO TABLE hw3.events PARTITION (year=2025);
 LOAD DATA INPATH '/user/team/hw3/input/2026.csv' OVERWRITE INTO TABLE hw3.events PARTITION (year=2026);
 SHOW PARTITIONS hw3.events;
-SELECT year, COUNT(*) FROM hw3.events GROUP BY year ORDER BY year;
-SELECT * FROM hw3.events ORDER BY year, id;
+SELECT * FROM hw3.events WHERE year=2024;
+SELECT * FROM hw3.events WHERE year=2025;
+SELECT * FROM hw3.events WHERE year=2026;
 SQL

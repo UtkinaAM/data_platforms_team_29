@@ -47,8 +47,6 @@ beeline=("$HIVE_HOME/bin/beeline" -u jdbc:hive2://team-29-en:5433/default -n tea
 SHOW DATABASES;
 DESCRIBE FORMATTED hw3.events;
 SHOW PARTITIONS hw3.events;
-SELECT year, COUNT(*) FROM hw3.events GROUP BY year ORDER BY year;
-SELECT * FROM hw3.events ORDER BY year, id;
 SQL
 
 umask 077
@@ -77,21 +75,23 @@ awk '
   }
   END {exit bad || rows != 3}
 ' "$work_dir/partitions"
-"${machine_beeline[@]}" -e 'SELECT year, COUNT(*) FROM hw3.events GROUP BY year ORDER BY year;' |
-  tee "$work_dir/counts"
-awk -F '\t' '
-  NF {
-    if (NF != 2 || $1 !~ /^202[456]$/ || $2 != 2 || seen[$1]++) bad=1
-    rows++
-  }
-  END {exit bad || rows != 3}
-' "$work_dir/counts"
+for year in 2024 2025 2026; do
+  "${machine_beeline[@]}" -e "SELECT id, name, event_date, event_type, year FROM hw3.events WHERE year=$year;" |
+    tee "$work_dir/data-$year"
+  awk -F '\t' -v year="$year" '
+    NF {
+      if (NF != 5 || $5 != year) bad=1
+      rows++
+    }
+    END {exit bad || rows != 2}
+  ' "$work_dir/data-$year"
+done
 
 client1=$(mktemp "$work_dir/client1.XXXXXX")
 client2=$(mktemp "$work_dir/client2.XXXXXX")
-"${machine_beeline[@]}" -e 'SELECT COUNT(*) FROM hw3.events WHERE year=2024;' > "$client1" 2>&1 &
+"${machine_beeline[@]}" -e 'SELECT id, name, event_date, event_type, year FROM hw3.events WHERE year=2024;' > "$client1" 2> "$client1.stderr" &
 pid1=$!
-"${machine_beeline[@]}" -e 'SELECT COUNT(*) FROM hw3.events WHERE year=2025;' > "$client2" 2>&1 &
+"${machine_beeline[@]}" -e 'SELECT id, name, event_date, event_type, year FROM hw3.events WHERE year=2025;' > "$client2" 2> "$client2.stderr" &
 pid2=$!
 if wait "$pid1"; then
   status1=0
@@ -105,16 +105,18 @@ else
   status2=$?
 fi
 pid2=''
-cat "$client1"
-cat "$client2"
-count_status=0
+cat "$client1" "$client1.stderr"
+cat "$client2" "$client2.stderr"
+[[ $status1 == 0 && $status2 == 0 ]]
+year=2024
 for client_file in "$client1" "$client2"; do
-  if ! awk '
-    /^[[:space:]]*[0-9]+[[:space:]]*$/ {rows++; if ($1 != 2) bad=1}
-    END {exit bad || rows != 1}
-  ' "$client_file"; then
-    count_status=1
-  fi
+  awk -F '\t' -v year="$year" '
+    NF {
+      if (NF != 5 || $5 != year) bad=1
+      rows++
+    }
+    END {exit bad || rows != 2}
+  ' "$client_file"
+  year=$((year+1))
 done
-rm -f -- "$client1" "$client2"
-[[ $status1 == 0 && $status2 == 0 && $count_status == 0 ]]
+rm -f -- "$client1" "$client1.stderr" "$client2" "$client2.stderr"
