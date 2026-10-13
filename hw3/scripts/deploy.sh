@@ -190,6 +190,10 @@ cat <<XML > "$work_dir/hive-site.xml"
     <value>false</value>
   </property>
   <property>
+    <name>metastore.event.db.notification.api.auth</name>
+    <value>false</value>
+  </property>
+  <property>
     <name>hive.metastore.schema.verification</name>
     <value>true</value>
   </property>
@@ -199,6 +203,7 @@ cat <<XML > "$work_dir/hive-site.xml"
   </property>
 </configuration>
 XML
+bash "$script_dir/stop.sh"
 install -m 600 "$work_dir/hive-site.xml" "$HIVE_HOME/conf/hive-site.xml"
 unset db_password
 source "$HIVE_HOME/conf/hive-env.sh"
