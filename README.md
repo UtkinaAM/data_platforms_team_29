@@ -7,3 +7,4 @@
 - [ДЗ1. HDFS](hw1/README.md)
 - [ДЗ2. YARN](hw2/README.md)
 - [ДЗ3. Hive](hw3/README.md)
+- [ДЗ4. Spark](hw4/README.md)
