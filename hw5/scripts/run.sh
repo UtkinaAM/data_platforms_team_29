@@ -30,7 +30,15 @@ with open(sys.argv[1]) as file:
     dags = json.load(file)
 raise SystemExit(sum(dag["dag_id"] == "hw5_etl" for dag in dags) != 1)
 PY
-"$airflow" dags list-import-errors
+"$airflow" dags list-import-errors -o json | tee "$work_dir/import-errors"
+python3 - "$work_dir/import-errors" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1]) as file:
+    errors = json.load(file)
+raise SystemExit(bool(errors))
+PY
 "$airflow" dags unpause hw5_etl
 run_id="manual__hw5_$(date -u +%Y%m%dT%H%M%SZ)"
 "$airflow" dags trigger -r "$run_id" hw5_etl

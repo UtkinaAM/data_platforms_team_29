@@ -60,7 +60,15 @@ with open(sys.argv[1]) as file:
     dags = json.load(file)
 raise SystemExit(sum(dag["dag_id"] == "hw5_etl" for dag in dags) != 1)
 PY
-"$airflow" dags list-import-errors
+"$airflow" dags list-import-errors -o json | tee "$work_dir/import-errors"
+python3 - "$work_dir/import-errors" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1]) as file:
+    errors = json.load(file)
+raise SystemExit(bool(errors))
+PY
 "$airflow" tasks list hw5_etl | tee "$work_dir/tasks"
 for task in check_hdfs_input spark_transform publish_hive_table verify_hive_table; do
   grep -Fx "$task" "$work_dir/tasks"
