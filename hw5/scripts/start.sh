@@ -24,11 +24,11 @@ is_service() {
   [[ -r /proc/$pid/environ ]] || return 1
   grep -zFxq "AIRFLOW_HOME=$AIRFLOW_HOME" "/proc/$pid/environ" || return 1
   ps -ww -p "$pid" -o user=,args= | awk -v role="$role" '
-    $1 == "team" && (
-      (role == "scheduler" && /airflow scheduler([[:space:]]|$)/) ||
-      (role == "webserver-monitor" && /airflow webserver([[:space:]]|$)/) ||
-      (role == "webserver" && (/gunicorn: master \[airflow-webserver\]/ || /-m gunicorn.*--name airflow-webserver/))
-    ) {found=1}
+    $1 != "team" {next}
+    role == "scheduler" && /airflow scheduler([[:space:]]|$)/ {found=1}
+    role == "webserver-monitor" && /airflow webserver([[:space:]]|$)/ {found=1}
+    role == "webserver" && /gunicorn: master \[airflow-webserver\]/ {found=1}
+    role == "webserver" && /-m gunicorn.*--name airflow-webserver/ {found=1}
     END {exit !found}
   '
 }
