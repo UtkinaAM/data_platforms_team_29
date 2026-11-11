@@ -5,6 +5,7 @@ set -euo pipefail
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 hw5_dir=$(cd -- "$script_dir/.." && pwd)
 export AIRFLOW_HOME=/home/team/airflow-hw5
+export PATH="$AIRFLOW_HOME/venv/bin:$PATH"
 export AIRFLOW__CORE__LOAD_EXAMPLES=False
 export AIRFLOW__CORE__EXECUTOR=SequentialExecutor
 export AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////home/team/airflow-hw5/airflow.db
